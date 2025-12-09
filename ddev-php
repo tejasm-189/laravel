@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Map host path to container path
+HOST_PATH="/home/hackerx/laravel"
+CONTAINER_PATH="/var/www/html"
+
+args=()
+for arg in "$@"; do
+    if [[ "$arg" == "$HOST_PATH"* ]]; then
+        args+=("${arg//$HOST_PATH/$CONTAINER_PATH}")
+    else
+        args+=("$arg")
+    fi
+done
+
+# Run php inside the container
+ddev exec php "${args[@]}"
