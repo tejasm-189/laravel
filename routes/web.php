@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Models\Task;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,7 +16,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 // Demo route to show Blade usage
 // Demo routes for Blade
 Route::prefix('blade-demo')->group(function () {
-    
+
     // Main demo page
     Route::get('/', function () {
         $tasks = \App\Models\Task::take(5)->get();
@@ -38,33 +40,33 @@ Route::prefix('blade-demo')->group(function () {
             'title' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
-        
+
         \App\Models\Task::create($validated);
-        
+
         return redirect()->route('blade.tasks.index')->with('success', 'Task created successfully!');
     })->name('blade.tasks.store');
 
     // Show Task Details
 
     // Show Task Details
-    Route::get('/tasks/{task}', function (\App\Models\Task $task) {
+    Route::get('/tasks/{task}', function (Task $task) {
         return view('tasks.show', ['task' => $task]);
     })->name('blade.tasks.show');
 
     // Edit Task Form
-    Route::get('/tasks/{task}/edit', function (\App\Models\Task $task) {
+    Route::get('/tasks/{task}/edit', function (Task $task) {
         return view('tasks.edit', ['task' => $task]);
     })->name('blade.tasks.edit');
 
     // Update Task (Handle Edit Submit)
-    Route::put('/tasks/{task}', function (\Illuminate\Http\Request $request, \App\Models\Task $task) {
+    Route::put('/tasks/{task}', function (Request $request, Task $task) {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
-        
+
         $task->update($validated);
-        
+
         return redirect()->route('blade.tasks.index')->with('success', 'Task updated successfully!');
     })->name('blade.tasks.update');
 });
