@@ -26,6 +26,7 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'is_completed' => 'boolean',
         ]);
 
@@ -51,6 +52,7 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'title' => 'sometimes|string|max:255',
+            'description' => 'nullable|string',
             'is_completed' => 'sometimes|boolean',
         ]);
 
