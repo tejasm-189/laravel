@@ -46,25 +46,23 @@ Route::prefix('blade-demo')->group(function () {
 
     // Show Task Details
 
-    Route::get('/tasks/{id}', function ($id) {
-        $task = \App\Models\Task::findOrFail($id);
+    // Show Task Details
+    Route::get('/tasks/{task}', function (\App\Models\Task $task) {
         return view('tasks.show', ['task' => $task]);
     })->name('blade.tasks.show');
 
     // Edit Task Form
-    Route::get('/tasks/{id}/edit', function ($id) {
-        $task = \App\Models\Task::findOrFail($id);
+    Route::get('/tasks/{task}/edit', function (\App\Models\Task $task) {
         return view('tasks.edit', ['task' => $task]);
     })->name('blade.tasks.edit');
 
     // Update Task (Handle Edit Submit)
-    Route::put('/tasks/{id}', function (\Illuminate\Http\Request $request, $id) {
+    Route::put('/tasks/{task}', function (\Illuminate\Http\Request $request, \App\Models\Task $task) {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
         
-        $task = \App\Models\Task::findOrFail($id);
         $task->update($validated);
         
         return redirect()->route('blade.tasks.index')->with('success', 'Task updated successfully!');
