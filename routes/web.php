@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Models\Task;
+use App\Http\Requests\TaskRequest;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -35,13 +36,8 @@ Route::prefix('blade-demo')->group(function () {
     })->name('blade.tasks.create');
 
     // Store Task (Handle Form Submit)
-    Route::post('/tasks', function (\Illuminate\Http\Request $request) {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
-
-        \App\Models\Task::create($validated);
+    Route::post('/tasks', function (TaskRequest $request) {
+        Task::create($request->validated());
 
         return redirect()->route('blade.tasks.index')->with('success', 'Task created successfully!');
     })->name('blade.tasks.store');
@@ -59,13 +55,8 @@ Route::prefix('blade-demo')->group(function () {
     })->name('blade.tasks.edit');
 
     // Update Task (Handle Edit Submit)
-    Route::put('/tasks/{task}', function (Request $request, Task $task) {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
-
-        $task->update($validated);
+    Route::put('/tasks/{task}', function (TaskRequest $request, Task $task) {
+        $task->update($request->validated());
 
         return redirect()->route('blade.tasks.index')->with('success', 'Task updated successfully!');
     })->name('blade.tasks.update');
