@@ -21,7 +21,7 @@ Route::prefix('blade-demo')->group(function () {
     // Main demo page
     Route::get('/', function () {
         $tasks = \App\Models\Task::take(5)->get();
-        return view('demo', ['name' => 'Developer', 'tasks' => $tasks]);
+        return view('demo', ['name' => 'Developer', 'tasks' => $tasks])->tasks->paginate(10);
     });
 
     // Task List
