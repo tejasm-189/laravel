@@ -163,6 +163,38 @@
             display: flex;
             gap: 0.5rem;
         }
+
+        /* Pagination Styles */
+        nav .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+
+        nav .page-item .page-link {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            color: #374151;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            background: white;
+        }
+
+        nav .page-item.active .page-link {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        nav .page-item.disabled .page-link {
+            color: #9ca3af;
+            background-color: #f3f4f6;
+            pointer-events: none;
+        }
     </style>
 </head>
 

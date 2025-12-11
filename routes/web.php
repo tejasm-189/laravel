@@ -20,13 +20,14 @@ Route::prefix('blade-demo')->group(function () {
 
     // Main demo page
     Route::get('/', function () {
-        $tasks = \App\Models\Task::take(5)->get();
-        return view('demo', ['name' => 'Developer', 'tasks' => $tasks])->tasks->paginate(10);
+        $tasks = \App\Models\Task::take(5)->paginate(5);
+        return view('demo', ['name' => 'Developer', 'tasks' => $tasks]);
     });
 
     // Task List
+    // Task List
     Route::get('/tasks', function () {
-        $tasks = \App\Models\Task::latest()->get();
+        $tasks = \App\Models\Task::latest()->paginate(5);
         return view('tasks.index', ['tasks' => $tasks]);
     })->name('blade.tasks.index');
 

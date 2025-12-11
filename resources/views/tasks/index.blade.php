@@ -28,6 +28,7 @@
                 {{ Str::limit($task->description, 50) }}
             </div>
         </div>
+
         <div class="actions">
             <a href="{{ route('blade.tasks.edit', $task->id) }}" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">Edit</a>
             <span style="font-size: 1.25rem;">{{ $task->is_completed ? '✅' : 'jq' }}</span>
@@ -35,5 +36,8 @@
     </li>
     @endforeach
 </ul>
+<div style="margin-top: 1rem;">
+    {{ $tasks->links() }}
+</div>
 @endif
 @endsection
