@@ -31,7 +31,13 @@
 
         <div class="actions">
             <a href="{{ route('blade.tasks.edit', $task->id) }}" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">Edit</a>
-            <span style="font-size: 1.25rem;">{{ $task->is_completed ? '✅' : 'jq' }}</span>
+            <form action="{{ route('blade.tasks.toggle', $task->id) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('PATCH')
+                <button type="submit" class="btn" style="background: none; border: none; font-size: 1.25rem; padding: 0; cursor: pointer;" title="Toggle Status">
+                    {{ $task->is_completed ? '✅' : '⬜' }}
+                </button>
+            </form>
         </div>
     </li>
     @endforeach

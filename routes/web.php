@@ -68,4 +68,10 @@ Route::prefix('blade-demo')->group(function () {
         $task->delete();
         return redirect()->route('blade.tasks.index')->with('success', 'Task deleted successfully!');
     })->name('blade.tasks.destroy');
+
+    // Toggle Task Status
+    Route::patch('/tasks/{task}/toggle', function (Task $task) {
+        $task->update(['is_completed' => !$task->is_completed]);
+        return redirect()->back();
+    })->name('blade.tasks.toggle');
 });
