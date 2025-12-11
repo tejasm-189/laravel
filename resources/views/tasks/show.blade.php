@@ -28,7 +28,14 @@
 
     <div style="margin-top: 2rem; border-top: 1px solid #e5e7eb; padding-top: 1rem; color: #9ca3af; font-size: 0.875rem; display: flex; justify-content: space-between; align-items: center;">
         <span>Created: {{ $task->created_at->format('M d, Y') }}</span>
-        <a href="{{ route('blade.tasks.edit', $task->id) }}" class="btn btn-secondary">Edit Task</a>
+        <div style="display: flex; gap: 0.5rem;">
+            <a href="{{ route('blade.tasks.edit', $task->id) }}" class="btn btn-secondary">Edit Task</a>
+            <form action="{{ route('blade.tasks.destroy', $task->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?');" style="display:inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete Task</button>
+            </form>
+        </div>
     </div>
 </div>
 @endsection

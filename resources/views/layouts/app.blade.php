@@ -95,7 +95,16 @@
         textarea:focus {
             outline: none;
             border-color: #3b82f6;
-            r: 2px solid #93c5fd;
+            ring: 2px solid #93c5fd;
+        }
+
+        .task-title.completed {
+            text-decoration: line-through;
+            color: #9ca3af;
+        }
+
+        .task-title:hover {
+            color: #3b82f6;
         }
 
         .alert {

@@ -60,4 +60,10 @@ Route::prefix('blade-demo')->group(function () {
 
         return redirect()->route('blade.tasks.index')->with('success', 'Task updated successfully!');
     })->name('blade.tasks.update');
+
+    // Delete Task
+    Route::delete('/tasks/{task}', function (Task $task) {
+        $task->delete();
+        return redirect()->route('blade.tasks.index')->with('success', 'Task deleted successfully!');
+    })->name('blade.tasks.destroy');
 });
