@@ -20,15 +20,16 @@ Route::prefix('blade-demo')->group(function () {
 
     // Main demo page
     Route::get('/', function () {
+        $name = 'Developer';
         $tasks = \App\Models\Task::take(5)->paginate(5);
-        return view('demo', ['name' => 'Developer', 'tasks' => $tasks]);
+        return view('demo', compact('name', 'tasks'));
     });
 
     // Task List
     // Task List
     Route::get('/tasks', function () {
         $tasks = \App\Models\Task::latest()->paginate(5);
-        return view('tasks.index', ['tasks' => $tasks]);
+        return view('tasks.index', compact('tasks'));
     })->name('blade.tasks.index');
 
     // Create Task Form
